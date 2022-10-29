@@ -25,13 +25,16 @@ public class CustomerService {
     }
 
     public Map.Entry<Customer, String> getNext(Customer customer) {
+        Map.Entry<Customer, String> nextCustomerData = null;
         int customerScore = Math.toIntExact(customer.getScores());
         for (Map.Entry<Customer, String> customerData : customersData) {
-            if (customerScore < customerData.getKey().getScores()) {
-                return new AbstractMap.SimpleEntry<>(new Customer(customerData.getKey()), customerData.getValue());
+            int currentCustomerScore = Math.toIntExact(customerData.getKey().getScores());
+            if (customerScore < currentCustomerScore
+                    && (nextCustomerData == null || nextCustomerData.getKey().getScores() > currentCustomerScore)) {
+                nextCustomerData = new AbstractMap.SimpleEntry<>(new Customer(customerData.getKey()), customerData.getValue());
             }
         }
-        return null;
+        return nextCustomerData;
     }
 
     public void add(Customer customer, String data) {
