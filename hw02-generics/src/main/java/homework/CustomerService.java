@@ -2,15 +2,15 @@ package homework;
 
 
 import java.util.AbstractMap;
-import java.util.ArrayList;
+import java.util.TreeMap;
 import java.util.Map;
 
 public class CustomerService {
-    private final ArrayList<AbstractMap.SimpleEntry<Customer, String>> customersData;
+    private final TreeMap<Integer, Map.Entry<Customer, String>> customersData;
     private Map.Entry<Customer, String> smallestCustomerData;
 
     public CustomerService() {
-        this.customersData = new ArrayList<>();
+        this.customersData = new TreeMap<>();
         this.smallestCustomerData = null;
     }
 
@@ -25,21 +25,18 @@ public class CustomerService {
     }
 
     public Map.Entry<Customer, String> getNext(Customer customer) {
-        Map.Entry<Customer, String> nextCustomerData = null;
-        int customerScore = Math.toIntExact(customer.getScores());
-        for (Map.Entry<Customer, String> customerData : customersData) {
-            int currentCustomerScore = Math.toIntExact(customerData.getKey().getScores());
-            if (customerScore < currentCustomerScore
-                    && (nextCustomerData == null || nextCustomerData.getKey().getScores() > currentCustomerScore)) {
-                nextCustomerData = new AbstractMap.SimpleEntry<>(new Customer(customerData.getKey()), customerData.getValue());
-            }
+        Integer keyOfNextCustomerData = customersData.higherKey((int) customer.getScores());
+        if (keyOfNextCustomerData == null) {
+            return null;
         }
-        return nextCustomerData;
+
+        Map.Entry<Customer, String> nextCustomerData = customersData.get(keyOfNextCustomerData);
+        return new AbstractMap.SimpleEntry<>(new Customer(nextCustomerData.getKey()), nextCustomerData.getValue());
     }
 
     public void add(Customer customer, String data) {
         AbstractMap.SimpleEntry<Customer, String> newCustomerData = new AbstractMap.SimpleEntry<>(customer, data);
-        customersData.add(newCustomerData);
+        customersData.put((int) customer.getScores(), newCustomerData);
         if (smallestCustomerData == null || smallestCustomerData.getKey().getScores() > customer.getScores()) {
             smallestCustomerData = newCustomerData;
         }
