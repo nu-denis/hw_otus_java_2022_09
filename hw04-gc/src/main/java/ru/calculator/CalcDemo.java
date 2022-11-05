@@ -8,6 +8,15 @@ package ru.calculator;
 -XX:HeapDumpPath=./logs/heapdump.hprof
 -XX:+UseG1GC
 -Xlog:gc=debug:file=./logs/gc-%p-%t.log:tags,uptime,time,level:filecount=5,filesize=10m
+
+
+heap size| before | after
+ 128m    | NaN    | 0.76s
+ 256m    | 19,5s  | 0.76s
+ 512m    | 13,6s  | 0.77s
+1024m    | 12.0s  | 0.78s
+2048m    | 10,5s* | 0.78s
+3048m    | 10,4s  | 0.78s
 */
 
 
