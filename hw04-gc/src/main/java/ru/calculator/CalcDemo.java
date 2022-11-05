@@ -10,13 +10,13 @@ package ru.calculator;
 -Xlog:gc=debug:file=./logs/gc-%p-%t.log:tags,uptime,time,level:filecount=5,filesize=10m
 
 
-heap size| before | after
- 128m    | NaN    | 0.76s
- 256m    | 19,5s  | 0.76s
- 512m    | 13,6s  | 0.77s
-1024m    | 12.0s  | 0.78s
-2048m    | 10,5s* | 0.78s
-3048m    | 10,4s  | 0.78s
+heap size| before | after | after2
+ 128m    | NaN    | 0.76s | NaN
+ 256m    | 19,5s  | 0.76s | 2.8s
+ 512m    | 13,6s  | 0.77s | 2.1s
+1024m    | 12.0s  | 0.78s | 2.0s
+2048m    | 10,5s* | 0.78s | 2.2s
+3048m    | 10,4s  | 0.78s | 2.2s
 */
 
 
